@@ -1,0 +1,32 @@
+{
+  "name": "xml-feed-app",
+  "version": "1.0.0",
+  "description": "after submitting xml url feed will be displayed ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mufaddalmw/xml-feed-app.git"
+  },
+  "keywords": [
+    "xml",
+    "singlepageapp"
+  ],
+  "author": "Mufaddal Motorwala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mufaddalmw/xml-feed-app/issues"
+  },
+  "homepage": "https://github.com/mufaddalmw/xml-feed-app#readme",
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
