@@ -14,7 +14,10 @@ var paths = {
   scripts: './source/assets/js/**/*.js',
   images: './source/assets/img/**/*',
   sass: './source/assets/sass/**/*.scss',
-  html: './source/**/*.html'
+  pages: [
+    './source/**/*.html',
+    './source/**/*.php'
+  ]
 };
 
 // Not all tasks need to use streams
@@ -45,8 +48,8 @@ gulp.task('images', function() {
 });
 
 // Copy all html pages
-gulp.task('html', function() {
-  return gulp.src(paths.html)
+gulp.task('pages', function() {
+  return gulp.src(paths.pages)
     // Pass in options to the task
     .pipe(gulp.dest('./build'));
 });
@@ -92,12 +95,12 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('watch', function() {
   gulp.watch('./source/assets/js/app.js', ['browserify']);
   gulp.watch(paths.images, ['images']);
-  gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.pages, ['pages']);
   gulp.watch(paths.sass, ['sass']);
 
   // reload browser
-  gulp.watch("./build/**/*").on('change', browserSync.reload);
+  // gulp.watch("./build/**/*").on('change', browserSync.reload);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'images', 'html', 'sass', 'browserify', 'serve']);
+gulp.task('default', ['watch', 'images', 'pages', 'sass', 'browserify']);

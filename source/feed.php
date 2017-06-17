@@ -1,3 +1,18 @@
+<?php
+// define variables and set to empty values
+$url = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $url = test_input($_POST["url"]);
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -9,7 +24,12 @@
 </head>
 <body>
   <div class="row column small-5">
-    <form class="" id="productFeedForm" action="index.html" method="post" data-abide novalidate>
+    <?php
+if (isset($url)){
+  echo $url;
+}
+     ?>
+    <!-- <form class="" id="productFeedForm" action="index.html" method="post" data-abide novalidate>
       <h3>Submit product feed url</h3>
       <div data-abide-error class="alert callout" style="display: none;">
         <p><i class="fi-alert"></i> There are some errors in your form.</p>
@@ -19,10 +39,7 @@
         <input type="url" name="feed-url" value="" required pattern="url">
       </label>
       <button type="submit" name="button" class="button button-primary">Submit</button>
-    </form>
-    <button type="button" onclick="loadDoc()">Get my CD collection</button>
-    <br><br>
-    <table id="demo"></table>
+    </form> -->
   </div>
   <script src="./assets/js/bundle.js"></script>
 </body>
