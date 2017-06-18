@@ -12,7 +12,7 @@
     <form class="" id="productFeedForm" action="<?php echo htmlspecialchars('feed.php');?>" method="post" data-abide novalidate>
       <h3>Submit product feed url</h3>
       <div data-abide-error class="alert callout" style="display: none;">
-        <p><i class="fi-alert"></i> There are some errors in your form.</p>
+        <p>There are some errors in your form.</p>
       </div>
       <label>
         Feed URL

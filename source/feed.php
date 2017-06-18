@@ -1,17 +1,20 @@
 <?php
 // define variables and set to empty values
-$url = "";
+$url = $imageURL = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// if request is made from index (form) page then execute
+if (!$_SERVER["REQUEST_METHOD"] == "POST") {
+  header("Location: index.php");
+  exit;
+}
+// otherwise redirect them to index (form) page
+else {
+  // trim down special character from string
   $url = test_input($_POST["url"]);
-}
+  // fetch xml feed
+  $xml=simplexml_load_file($url) or die("Error: Cannot create object");
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -23,23 +26,46 @@ function test_input($data) {
 <link rel="stylesheet" href="./assets/css/app.css">
 </head>
 <body>
-  <div class="row column small-5">
-    <?php
-if (isset($url)){
-  echo $url;
-}
-     ?>
-    <!-- <form class="" id="productFeedForm" action="index.html" method="post" data-abide novalidate>
-      <h3>Submit product feed url</h3>
-      <div data-abide-error class="alert callout" style="display: none;">
-        <p><i class="fi-alert"></i> There are some errors in your form.</p>
+  <div class="row column small-12 medium-10 large-9">
+    <div class="list-view">
+      <div class="row">
+<?php
+foreach($xml->children() as $product) {
+    // echo $products->productID . ", ";
+    // echo $products->name . ", ";
+    // echo $products->description . ", ";
+    // echo $products->price . ", ";
+    // echo $products->category . ", ";
+    // echo $products->productURL . ", ";
+    $imageURL = $product->imageURL;
+
+ ?>
+        <div class="column column-block">
+          <div class="list-view__col list-view__image">
+      			<div class="list-view__img-bucket">
+        			<a href="https://uae.souq.com/ae-en/apple-macbook-laptop-intel-core-m-1-1-ghz-dual-core-12-inch-256gb-8gb-gold-early-2015-mk4m2-8609694/i/">
+        				<img src="<?php echo $imageURL; ?>">
+        			</a>
+        		</div>
+        	</div>
+        </div>
+        <?php
+      }
+
+      }
+      // end
+
+      // function for removing special character from string
+      function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+      }
+         ?>
       </div>
-      <label>
-        Feed URL
-        <input type="url" name="feed-url" value="" required pattern="url">
-      </label>
-      <button type="submit" name="button" class="button button-primary">Submit</button>
-    </form> -->
+
+    </div>
   </div>
   <script src="./assets/js/bundle.js"></script>
 </body>
