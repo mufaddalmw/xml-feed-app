@@ -1,8 +1,27 @@
 .list-view {
+  // list view column
   &__col {
     float: left;
+    padding: rem-calc(0 15);
   }
+  // list view image column
   &__image {
     width: 18%;
+  }
+  &__img-bucket {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+  &__item:not(:last-child) {
+    border-bottom: 1px solid $light-gray;
+  }
+  // list view content column
+  &__info {
+    width: 54%;
+    h1 {
+      font-size: rem-calc(18);
+      font-weight: bold;
+    }
   }
 }

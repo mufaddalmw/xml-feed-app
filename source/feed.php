@@ -1,6 +1,6 @@
 <?php
 // define variables and set to empty values
-$url = $imageURL = "";
+$xmlurl = $imageURL = $productURL = $name = $description = $category = $price = $category = "";
 
 // if request is made from index (form) page then execute
 if (!$_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,9 +10,9 @@ if (!$_SERVER["REQUEST_METHOD"] == "POST") {
 // otherwise redirect them to index (form) page
 else {
   // trim down special character from string
-  $url = test_input($_POST["url"]);
+  $xmlurl = test_input($_POST["url"]);
   // fetch xml feed
-  $xml=simplexml_load_file($url) or die("Error: Cannot create object");
+  $xml=simplexml_load_file($xmlurl) or die("Error: Cannot create object");
 
 
 ?>
@@ -31,23 +31,27 @@ else {
       <div class="row">
 <?php
 foreach($xml->children() as $product) {
-    // echo $products->productID . ", ";
-    // echo $products->name . ", ";
-    // echo $products->description . ", ";
-    // echo $products->price . ", ";
-    // echo $products->category . ", ";
-    // echo $products->productURL . ", ";
+    $productID = $product->productID;
+    $name = $product->name;
+    $description = $product->description;
+    $price = $product->price;
+    $category = $product->category;
+    $productURL = $product->productURL;
     $imageURL = $product->imageURL;
 
  ?>
-        <div class="column column-block">
+        <div class="column column-block list-view__item">
           <div class="list-view__col list-view__image">
       			<div class="list-view__img-bucket">
-        			<a href="https://uae.souq.com/ae-en/apple-macbook-laptop-intel-core-m-1-1-ghz-dual-core-12-inch-256gb-8gb-gold-early-2015-mk4m2-8609694/i/">
-        				<img src="<?php echo $imageURL; ?>">
+        			<a href="<?php echo $productURL; ?>">
+        				<img src="<?php echo $imageURL; ?>" alt="<?php echo $name; ?>" title="<?php echo $name; ?>">
         			</a>
         		</div>
         	</div>
+          <div class="list-view__col list-view__info">
+            <a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>"><h1><?php echo $name; ?></h1> </a>
+            <p><?php echo $description; ?></p>
+          </div>
         </div>
         <?php
       }
