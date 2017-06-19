@@ -24,4 +24,8 @@
       font-weight: bold;
     }
   }
+  &__info-description {
+    font-size:$small-font-size;
+    color: $dark-gray;
+  }
 }

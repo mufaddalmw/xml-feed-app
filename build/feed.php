@@ -50,7 +50,9 @@ foreach($xml->children() as $product) {
         	</div>
           <div class="list-view__col list-view__info">
             <a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>"><h1><?php echo $name; ?></h1> </a>
-            <p><?php echo $description; ?></p>
+            <div class="list-view__info-description">
+              <p><?php echo $description; ?></p>
+            </div>
           </div>
         </div>
         <?php
