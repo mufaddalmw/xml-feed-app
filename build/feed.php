@@ -1,6 +1,6 @@
 <?php
 // define variables and set to empty values
-$xmlurl = $imageURL = $productURL = $name = $description = $category = $price = $category = "";
+$xmlurl = $imageURL = $productURL = $name = $description = $categories = $category = $price = $currency = $category = "";
 
 // if request is made from index (form) page then execute
 if (!$_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,33 +26,64 @@ else {
 <link rel="stylesheet" href="./assets/css/app.css">
 </head>
 <body>
-  <div class="row column small-12 medium-10 large-9">
-    <div class="list-view">
+  <div class="row column small-12 medium-9 large-8">
+    <div class="product">
       <div class="row">
 <?php
 foreach($xml->children() as $product) {
     $productID = $product->productID;
     $name = $product->name;
     $description = $product->description;
+    // $category = $product->categories->category;
+
     $price = $product->price;
+    $currency = $product->price['currency'];
     $category = $product->category;
     $productURL = $product->productURL;
     $imageURL = $product->imageURL;
 
  ?>
-        <div class="column column-block list-view__item">
-          <div class="list-view__col list-view__image">
-      			<div class="list-view__img-bucket">
+        <div class="column column-block product__item">
+          <!-- image -->
+          <div class="product__col product__col-image">
+      			<div class="product__img-bucket">
         			<a href="<?php echo $productURL; ?>">
         				<img src="<?php echo $imageURL; ?>" alt="<?php echo $name; ?>" title="<?php echo $name; ?>">
         			</a>
         		</div>
         	</div>
-          <div class="list-view__col list-view__info">
-            <a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>"><h1><?php echo $name; ?></h1> </a>
-            <div class="list-view__info-description">
-              <p><?php echo $description; ?></p>
+          <!-- description -->
+          <div class="product__col product__col-info">
+            <a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>" class="product__title"><h1><?php echo $name; ?></h1> </a>
+
+            <div class="product__info-description">
+              <p>
+                <?php
+                // if description is bigger than 140 character then show three dots (...)
+                if (strlen($description) > 140) {
+                  $description = substr($description,0,140) . '...';
+                  echo $description;
+                }
+                // otherwise show full description
+                else {
+                  echo $description;
+                }
+              ?></p>
+              <ul class="bullet-list">
+                <?php foreach($product->categories as $categories) {
+                  $category = $categories->category;
+                ?>
+                <li><strong><?php echo $category; ?></strong></li>
+                <?php } ?>
+              </ul>
             </div>
+            <span class="product__id"><span class="subheader">Product Id -</span> <?php echo $productID; ?></span>
+          </div>
+          <!-- price -->
+          <div class="product__col product__col-price">
+            <h4 class="product__price"><?php echo $price; ?></h4>
+            <span class="product__currency"><?php echo $currency; ?></span>
+
           </div>
         </div>
         <?php

@@ -1,5 +1,5 @@
 @import './node_modules/foundation-sites/scss/foundation';
-
+@import 'base/setting';
 @include foundation-global-styles;
 @include foundation-grid;
 // @include foundation-flex-grid;
@@ -42,4 +42,7 @@
 
 
 // Custom css
+
+@import 'base/base';
+@import 'base/helper';
 @import 'layout/feed';
