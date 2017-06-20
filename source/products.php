@@ -2,6 +2,14 @@
 // define variables and set to empty values
 $xmlurl = $imageURL = $productURL = $name = $description = $categories = $category = $price = $currency = $category = "";
 
+// function for removing special character from string
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
 // if request is made from index (form) page then execute
 if (!$_SERVER["REQUEST_METHOD"] == "POST") {
   header("Location: index.php");
@@ -13,8 +21,6 @@ else {
   $xmlurl = test_input($_POST["url"]);
   // fetch xml feed
   $xml=simplexml_load_file($xmlurl) or die("Error: Cannot create object");
-
-
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -22,11 +28,21 @@ else {
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XML Feed App</title>
-<link rel="icon" href="./assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="./assets/img/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="./assets/css/app.css">
 </head>
 <body>
-  <div class="row column small-12 medium-9 large-8">
+  <div data-sticky-container>
+    <div class="sticky sticky-header" data-sticky data-margin-top="0">
+      <!-- Header -->
+      <header class="site-header">
+        <div class="row column large-8">
+          <a href="index.php" class="site-header__logo"><img src="assets/img/centralpoint-logo.png" alt="centralpoint-logo"></a>
+        </div>
+      </header>
+    </div>
+  </div>
+  <div class="row column small-12 large-8">
     <div class="product">
       <div class="row">
 <?php
@@ -43,7 +59,8 @@ foreach($xml->children() as $product) {
     $imageURL = $product->imageURL;
 
  ?>
-        <div class="column column-block product__item">
+  <!-- each product item -->
+        <div class="column product__item">
           <!-- image -->
           <div class="product__col product__col-image">
       			<div class="product__img-bucket">
@@ -55,7 +72,7 @@ foreach($xml->children() as $product) {
           <!-- description -->
           <div class="product__col product__col-info">
             <a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>" class="product__title"><h1><?php echo $name; ?></h1> </a>
-
+            <p><span class="product__id"><?php echo $productID; ?></span></p>
             <div class="product__info-description">
               <p>
                 <?php
@@ -77,33 +94,29 @@ foreach($xml->children() as $product) {
                 <?php } ?>
               </ul>
             </div>
-            <span class="product__id"><span class="subheader">Product Id -</span> <?php echo $productID; ?></span>
+
           </div>
           <!-- price -->
           <div class="product__col product__col-price">
             <h4 class="product__price"><?php echo $price; ?></h4>
             <span class="product__currency"><?php echo $currency; ?></span>
-
+            <div class="">
+              <a href="<?php echo $productURL; ?>" class="product__details">View full product details</a>
+            </div>
           </div>
         </div>
+        <!-- /end each product -->
         <?php
       }
 
-      }
+    }
       // end
-
-      // function for removing special character from string
-      function test_input($data) {
-      $data = trim($data);
-      $data = stripslashes($data);
-      $data = htmlspecialchars($data);
-      return $data;
-      }
-         ?>
+?>
       </div>
-
+      <!-- /end of row -->
     </div>
   </div>
+
   <script src="./assets/js/bundle.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var del = require('del');
 var browserSync = require('browser-sync').create();
-var connect = require('gulp-connect-php');
+var htmlmin = require('gulp-htmlmin');
 
 
 var paths = {
@@ -45,13 +45,14 @@ gulp.task('images', function() {
   return gulp.src(paths.images)
     // Pass in options to the task
     // .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest('./build/img'));
+    .pipe(gulp.dest('./build/assets/img'));
 });
 
 // Copy all html pages
 gulp.task('pages', function() {
   return gulp.src(paths.pages)
     // Pass in options to the task
+    .pipe(htmlmin({collapseWhitespace: true, removeComments: true})) //himl minify
     .pipe(gulp.dest('./build'));
 });
 
@@ -82,22 +83,12 @@ gulp.task('browserify', function() {
 // browser sync
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
-
     browserSync.init({
         server: "./build"
     });
-
 });
 
-// php connect
-gulp.task('connect-sync', function() {
-  connect.server({}, function (){
-    browserSync.init({
-      // server: "./build",
-      proxy: '127.0.0.1:8000/build'
-    });
-  });
-});
+
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
