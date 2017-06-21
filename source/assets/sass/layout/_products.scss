@@ -87,6 +87,7 @@
   &__currency {
     font-size: $small-font-size;
     color:$primary-color;
+    margin-left: rem-calc(5);
   }
   &__details {
     font-size: rem-calc(14);

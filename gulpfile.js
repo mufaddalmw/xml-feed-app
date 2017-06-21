@@ -28,18 +28,6 @@ gulp.task('clean', function() {
   return del(['./build']);
 });
 
-// gulp.task('scripts', ['clean'], function() {
-//   // Minify and copy all JavaScript (except vendor scripts)
-//   // with sourcemaps all the way down
-//   return gulp.src(paths.scripts)
-//     .pipe(sourcemaps.init())
-//       .pipe(coffee())
-//       .pipe(uglify())
-//       .pipe(concat('all.min.js'))
-//     .pipe(sourcemaps.write())
-//     .pipe(gulp.dest('build/js'));
-// });
-
 // Copy all static images
 gulp.task('images', function() {
   return gulp.src(paths.images)
@@ -61,6 +49,7 @@ gulp.task('sass', function () {
  return gulp.src(paths.sass)
   .pipe(sourcemaps.init())
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+  .pipe(autoprefixer())
   .pipe(sourcemaps.write('/'))
   .pipe(gulp.dest('./build/assets/css'))
   .pipe(browserSync.stream());
@@ -97,8 +86,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.pages, ['pages']);
   gulp.watch(paths.sass, ['sass']);
 
-  // reload browser
-  // gulp.watch("./build/**/*").on('change', browserSync.reload);
 });
 
 // The default task (called when you run `gulp` from cli)

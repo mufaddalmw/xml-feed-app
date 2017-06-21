@@ -5,7 +5,10 @@ $xmlurl = $imageURL = $productURL = $name = $description = $categories = $catego
 $xmlurl = 'http://pf.tradetracker.net/?aid=1&type=xml&encoding=utf-8&fid=251713&categoryType=2&additionalType=2&limit=10';
 // fetch xml feed
 $xml=simplexml_load_file($xmlurl) or die("Error: Cannot create object");
-?> <!doctype html><html class="no-js" lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>XML Feed App</title><link rel="icon" href="./assets/img/favicon.png" type="image/x-icon"><link rel="stylesheet" href="./assets/css/app.css"></head><body><div data-sticky-container><div class="sticky sticky-header" data-sticky data-margin-top="0"><header class="site-header"><div class="row column large-8"><a href="index.php" class="site-header__logo"><img src="assets/img/centralpoint-logo.png" alt="centralpoint-logo"></a></div></header></div></div><div class="row column small-12 large-8"><div class="product"><div class="row"> <?php
+//include header
+include('includes/header.php');
+?> <div class="row column small-12 large-8"><div class="product"><div class="row"> <?php
+// for each loop for fetching xml feed
 foreach($xml->children() as $product) {
     $productID = $product->productID;
     $name = $product->name;
@@ -18,7 +21,7 @@ foreach($xml->children() as $product) {
     $productURL = $product->productURL;
     $imageURL = $product->imageURL;
 
- ?> <div class="column product__item"><div class="product__col product__col-image"><div class="product__img-bucket"><a href="<?php echo $productURL; ?>"><img src="<?php echo $imageURL; ?>" alt="<?php echo $name; ?>" title="<?php echo $name; ?>"></a></div></div><div class="product__col product__col-info"><a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>" class="product__title"><h1><?php echo $name; ?></h1></a><p><span class="product__id"><?php echo $productID; ?></span></p><div class="product__info-description"><p> <?php
+ ?> <div class="column product__item"><div class="product__col product__col-image"><div class="product__img-bucket"><a href="<?php echo $productURL; ?>"><img data-src="<?php echo $imageURL; ?>" alt="<?php echo $name; ?>" title="<?php echo $name; ?>" class="lazyload"></a></div></div><div class="product__col product__col-info"><a href="<?php echo $productURL; ?>" title="<?php echo $name; ?>" class="product__title"><h1><?php echo $name; ?></h1></a><p><span class="product__id"><?php echo $productID; ?></span></p><div class="product__info-description"><p> <?php
                 // if description is bigger than 140 character then show three dots (...)
                 if (strlen($description) > 140) {
                   $description = substr($description,0,140) . '...';
@@ -33,5 +36,7 @@ foreach($xml->children() as $product) {
                 ?> <li><strong><?php echo $category; ?></strong></li> <?php } ?> </ul></div></div><div class="product__col product__col-price"><h4 class="product__price"><?php echo $price; ?></h4><span class="product__currency"><?php echo $currency; ?></span><div class=""><a href="<?php echo $productURL; ?>" class="product__details">View full product details</a></div></div></div> <?php
       }
       // end
-
-?> </div></div></div><script src="./assets/js/bundle.js"></script></body></html>
+?> </div></div></div> <?php
+// include footer
+include('includes/footer.php')
+?>
