@@ -5,7 +5,7 @@ Default url should be:<br>
 <pre>http://pf.tradetracker.net/?aid=1&type=xml&encoding=utf-8&fid=251713&categoryType=2&additionalType=2&limit=10</pre><br>
 
 ## Demo
-<a href="http://mufaddalmw.rf.gd/xml-feed-app/products.php" target="_blank">Demo application</a><br>
+<a href="http://mufaddalmw.rf.gd/xml-feed-app/" target="_blank">Demo application</a><br>
 <a href="http://mufaddalmw.rf.gd/xml-feed-app/products-demo.php" target="_blank">Demo real-time data</a>
 
 ## Features:
